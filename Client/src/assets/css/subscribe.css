@@ -1,0 +1,53 @@
+.subscribe-us .subscribe-form{
+    display: flex;
+    gap: 10px;
+    
+}
+button.Subscribe-btn.btn {
+    font-size: 0.8rem;
+    width: 100%;
+    background: #5b5b5b;
+    border-radius: 0px;
+    transition: 0.3s all ease;
+    padding: 6px;
+    color: white;
+}
+button.Subscribe-btn.btn:hover{
+    box-shadow: inset 5px 0px 0px 25px  black;
+}
+.form-section-subscribe{
+    padding: 10px 20px;
+}
+p.subscribe-text {
+    font-size: 0.7rem;
+    margin: 0.3rem 0;
+    text-align: justify;
+    color: gray;
+}
+.subscribe-form input {
+    border: 0px;
+    position: relative;
+    border-bottom: 1px solid #5b5b5b;
+    color: #5b5b5b;
+}
+.subscribe-form input:focus{
+    outline: 0px;
+}
+.subscribe-form input::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px ;
+    background-color: black;
+}
+h6.signup-for-head {
+    font-size: 1.3rem;
+    font-family: auto;
+}
+.subscribe-us .text-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

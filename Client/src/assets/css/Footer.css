@@ -1,0 +1,15 @@
+.description{
+    margin-top: 20px;
+    text-align: start;
+}
+.heading{
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.footerLink{
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+}
