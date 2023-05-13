@@ -7,7 +7,7 @@ const baseUrl = 'http://localhost:5000/admin';
 
 
 const getCategories = async () => {
-    const res = await axios.post(`${baseUrl}/category`)
+    const res = await axios.get(`${baseUrl}/category`)
     return res.data.categories;
 }
 

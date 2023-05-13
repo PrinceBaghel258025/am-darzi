@@ -4,6 +4,7 @@ const app = express();
 const router = require("./routers/index");
 const connect = require("./db");
 const server = require("http").Server(app);
+const cors = require('cors')
 
 // routers
 const categoryRouter = require('./routers/categoryRouter')
@@ -11,6 +12,9 @@ const customizationRouter = require('./routers/customizationRouter')
 const productRouter = require('./routers/productRouter')
 const designRouter = require('./routers/designRouter')
 
+
+// admin Router
+const adminRouter = require('./routers/adminRoter')
 
 app.use(express.json());
 app.use(cors())
@@ -20,6 +24,8 @@ app.get("/", (req, res) => {
   return res.send("hello");
 });
 
+app.use(express.static(`public`));
+app.use('/admin', adminRouter)
 
 // add category , get category
 app.use('/category', categoryRouter);

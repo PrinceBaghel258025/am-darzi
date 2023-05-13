@@ -1,16 +1,16 @@
 const Customization = require("../models/customizations");
 
 const getCustomization = async (req, res) => {
-  // const customizations = await Customization.find({});
-  // if(!customizations) {
-  //     return res.status(404).json({
-  //         error: "no data found"
-  //     })
-  // }
-  // // will be better if we send images along
-  // return res.status(200).json({
-  //     customizations
-  // })
+  const customizations = await Customization.find({});
+  if(!customizations) {
+      return res.status(404).json({
+          error: "no data found"
+      })
+  }
+  // will be better if we send images along
+  return res.status(200).json({
+      customizations
+  })
 };
 
 const addCustomization = async (req, res) => {

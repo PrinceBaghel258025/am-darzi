@@ -2,6 +2,7 @@ const Category = require("../models/category.js");
 
 const getAllCategories = async (req, res) => {
   try {
+    console.log("api hit")
     const categories = await Category.find({}).sort({ _id: -1 });
     if (!categories) {
       return res.status(404).json({
@@ -18,6 +19,7 @@ const getAllCategories = async (req, res) => {
 
 // get categories and subcategories
 const getCategory = async (req, res) => {
+  console.log(req.params)
   const { id } = req.params;
   try {
     const category = await Category.findById(id);
@@ -30,6 +32,7 @@ const getCategory = async (req, res) => {
       category,
     });
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       error: "server error",
     });
@@ -67,7 +70,19 @@ const addCategory = async (req, res) => {
   }
 };
 
+const updateCategory = async (req, res) => {
+
+  const id = req.params;
+
+  return res.status(200).json({
+    message: "got the request"
+  })
+  
+}
+
 module.exports = {
   getAllCategories,
   addCategory,
+  updateCategory,
+  getCategory
 };
