@@ -1,0 +1,45 @@
+{
+    "colors": [
+        "red",
+        "brown",
+        "orange"
+    ],
+    "fabrics": [
+        "cotton",
+        "silk",
+        "Armani"
+    ],
+    "occassions": [
+        "Wedding",
+        "Casual"
+    ],
+    "categories": [
+        {
+            "name": "Men",
+            "subCats": [
+                "Trousers",
+                "Pants",
+                "Shirts",
+                "Shorts",
+                "Shoes",
+                "Sandlas"
+            ]
+        },
+        {
+            "name": "Women",
+            "subCats": [
+                "Trousers",
+                "Pants",
+                "Shirts",
+                "Shorts",
+                "Shoes",
+                "Sandlas"
+            ]
+        }
+    ],
+    "customs": [
+        "lapel",
+        "button",
+        "collar"
+    ]
+}
