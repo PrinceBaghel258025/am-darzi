@@ -1,8 +1,10 @@
 const router = require("express").Router();
-const customizationController = require('../controllers/customizationControllers.js')
+const attributeController = require('../controllers/attributeControllers.js')
 const path = require('path')
 const multer = require('multer')
-router.get('/get', customizationController.getCustomization)
+
+
+router.get('/get', attributeController.getAttribute)
 
 
 // Image Upload setting
@@ -19,6 +21,7 @@ const multerStorage = multer.diskStorage({
 const upload = multer({ storage: multerStorage });
 
 
-router.post('/add', upload.array('images'), customizationController.addCustomization)
+// router.post('/add',upload.single("primary"), upload.array('images'), attributeController.addAttribute)
+// router.post('/add', attributeController.addAttribute)
 
 module.exports = router;

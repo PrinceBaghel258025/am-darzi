@@ -39,8 +39,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect({label, attributes, prefix, regi}) {
-
+export default function MultipleSelect({label, attributes, setState}) {
   console.log(attributes)
   const theme = useTheme();
   const [values, setValues] = React.useState([]);
@@ -53,7 +52,11 @@ export default function MultipleSelect({label, attributes, prefix, regi}) {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    setState(
+      typeof value === 'string' ? value.split(',') : value,
+    )
   };
+  // console.log(typeof register)
 
   return (
     <div style={{width : '50%'}}>
@@ -64,16 +67,17 @@ export default function MultipleSelect({label, attributes, prefix, regi}) {
           labelId={label}
           id={label}
           multiple
-          {...regi("colors")}
+          // {...regi("colors")}
           value={values}
           onChange={handleChange}
           input={<OutlinedInput label={label} />}
           MenuProps={MenuProps}
         >
-          {attributes.map((att) => (
+          {attributes.map((att, index) => (
             <MenuItem
               key={att}
               value={att}
+              // {...register(`colors.${index}`)}
               // style={getStyles(name, personName, theme)}
             >
               {att}

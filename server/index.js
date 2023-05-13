@@ -8,7 +8,7 @@ const cors = require('cors')
 
 // routers
 const categoryRouter = require('./routers/categoryRouter')
-const customizationRouter = require('./routers/customizationRouter')
+const attributeRouter = require('./routers/attributeRouter')
 const productRouter = require('./routers/productRouter')
 const designRouter = require('./routers/designRouter')
 
@@ -29,8 +29,8 @@ app.use('/admin', adminRouter)
 
 // add category , get category
 app.use('/category', categoryRouter);
-// for admin to add customization
-app.use('/customization', customizationRouter);
+// for admin to add attributes
+app.use('/attributes', attributeRouter);
 
 app.use('/products', productRouter)
 

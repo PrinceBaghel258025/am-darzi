@@ -11,6 +11,7 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
+import { useState } from "react";
 import InputAdornment from "@mui/material";
 import BaseCard from "../baseCard/BaseCard";
 import { CurrencyRupeeIcon } from "@mui/icons-material/CurrencyRupee";
@@ -20,6 +21,13 @@ import addProduct from "../../data/addProduct.json";
 import { useForm, useFieldArray } from "react-hook-form";
 
 const CreateProduct = () => {
+
+  const [colors, setColors] = useState([]);
+  const [customs, setCustoms] = useState([]);
+  const [occassions, setOccassions] = useState([]);
+  const [fabrics, setFabrics] = useState([]);
+
+
   const { register, handleSubmit, control, reset } = useForm();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -29,6 +37,10 @@ const CreateProduct = () => {
   );
 
   const onSubmit = (data) => {
+    console.log("colors", colors)
+    console.log("customs", customs)
+    console.log("occassions", occassions)
+    console.log("fabrics",fabrics)
     console.log(data);
   };
 
@@ -87,18 +99,21 @@ const CreateProduct = () => {
               </Stack>
               <Stack direction="row" gap={8}>
                 <Select
+                  // register={register}
+                  setState={setColors}
                   prefix="colors"
-                  // regi={register}
                   label="Select colors (if any)"
                   attributes={addProduct.colors}
                 />
                 <Select
+                setState={setFabrics}
                   label="Available in fabrics (if any)"
                   attributes={addProduct.fabrics}
                 />
               </Stack>
               <Stack direction="row" gap={8}>
                 <Select
+                setState={setOccassions}
                   label="Select suitable occassions (if any)"
                   attributes={addProduct.occassions}
                 />
@@ -109,6 +124,7 @@ const CreateProduct = () => {
               </Stack>
               <Stack direction="row">
                 <Select
+                setState={setCustoms}
                   label="Select a custom (if any)"
                   attributes={addProduct.customs}
                 />
@@ -121,7 +137,7 @@ const CreateProduct = () => {
                   component="label"
                 >
                   Upload Primary Image
-                  <input hidden accept="image/*" type="file" />
+                  <input hidden accept="image/*" type="file" {...register("primary-image")} />
                 </Button>
                 <Button
                   sx={{ width: "50%", backgroundColor: "blue" }}
@@ -129,7 +145,7 @@ const CreateProduct = () => {
                   component="label"
                 >
                   Upload More Images (if any)
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input hidden accept="image/*" multiple type="file"  {...register("more-images")}/>
                 </Button>
               </Stack>
             </Stack>
