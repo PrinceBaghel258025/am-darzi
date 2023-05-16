@@ -5,6 +5,7 @@ import NextLink from 'next/link'
 import AllCategoryTable from "../../src/components/dashboard/Category/AllCategoryTable";
 import AllAttributeTable from "../../src/components/dashboard/Products/Attributes/AllAttributesTable";
 import BaseCard from "../../src/components/baseCard/BaseCard";
+import attributeServices from "../../src/services/attribute";
 
 const top100Films = [
   "ghjkfd",
@@ -43,8 +44,24 @@ const top100Films = [
   "ghjkfd",
 ];
 
+export async function getServerSideProps (context) {
 
-const Category = () => {
+  const attributes = await attributeServices.getAllAttributes();
+
+
+
+  return {
+    props: {
+      attributes
+    }
+  }
+  
+}
+
+
+const Attributes = ({attributes}) => {
+
+  console.log(attributes)
   return (
     <>
       <BaseCard title="Attributes">
@@ -68,7 +85,7 @@ const Category = () => {
                 <Autocomplete
                   id="free-solo-demo"
                   freeSolo
-                  options={top100Films.map((option) => option)}
+                  options={attributes.map((option) => option.name)}
                   renderInput={(params) => (
                     <TextField {...params} label="Search Attributes ..." />
                   )}
@@ -76,7 +93,7 @@ const Category = () => {
               </Stack>
             </Stack>
             {/* <AllCategoryTable /> */}
-            <AllAttributeTable />
+            <AllAttributeTable attributes={attributes} />
           </Grid>
         </Grid>
       </BaseCard>
@@ -84,4 +101,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Attributes;

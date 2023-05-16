@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
     },
     images: {
       type: [String],
-      required: true,
+      // required: true,
     },
     subCategories: {
         type: [

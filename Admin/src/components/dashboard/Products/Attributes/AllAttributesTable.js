@@ -29,45 +29,6 @@ const useStyles = (theme) => ({
   },
 });
 
-// const products = [
-//   {
-//     id: "1",
-//     name: "Sunil Joshi",
-//     post: "Web Designer",
-//     pname: "Elite Admin",
-//     priority: "Low",
-//     pbg: "primary.main",
-//     budget: "3.9",
-//   },
-//   {
-//     id: "2",
-//     name: "Andrew McDownland",
-//     post: "Project Manager",
-//     pname: "Real Homes WP Theme",
-//     priority: "Medium",
-//     pbg: "secondary.main",
-//     budget: "24.5",
-//   },
-//   {
-//     id: "3",
-//     name: "Christopher Jamil",
-//     post: "Project Manager",
-//     pname: "MedicalPro WP Theme",
-//     priority: "High",
-//     pbg: "error.main",
-//     budget: "12.8",
-//   },
-//   {
-//     id: "4",
-//     name: "Nirav Joshi",
-//     post: "Frontend Engineer",
-//     pname: "Hosting Press HTML",
-//     priority: "Critical",
-//     pbg: "success.main",
-//     budget: "2.4",
-//   },
-// ];
-
 const products = [
   {
     _id: "6454836fcdc405373b26ccf5",
@@ -187,7 +148,7 @@ const products = [
     __v: 0,
   },
 ];
-const AllAttributeTable = () => {
+const AllAttributeTable = ({attributes}) => {
   const classes = useStyles();
 
   return (
@@ -206,11 +167,11 @@ const AllAttributeTable = () => {
                 No.
               </Typography>
             </TableCell>
-            <TableCell>
+            {/* <TableCell>
               <Typography color="textSecondary" variant="h6">
                 Image
               </Typography>
-            </TableCell>
+            </TableCell> */}
             <TableCell>
               <Typography color="textSecondary" variant="h6">
                 Attribute
@@ -231,8 +192,8 @@ const AllAttributeTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product, i) => (
-            <TableRow key={product._id}>
+          {attributes.map((att, i) => (
+            <TableRow key={att._id}>
               <TableCell>
                 <Typography
                   sx={{
@@ -243,7 +204,7 @@ const AllAttributeTable = () => {
                   {i + 1}
                 </Typography>
               </TableCell>
-              <TableCell>
+              {/* <TableCell>
                 <Image
                   // src='/public/static/images/logos/logo-dark.svg'
                   src={img}
@@ -251,7 +212,7 @@ const AllAttributeTable = () => {
                   height="100"
                   // layout="fill"
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell>
                 <Box
                   sx={{
@@ -267,9 +228,9 @@ const AllAttributeTable = () => {
                         fontWeight: "600",
                       }}
                     >
-                      {product.name}
+                      {att.name}
                     </Typography>
-                    <Typography
+                    {/* <Typography
                       color="textSecondary"
                       fontSize={12}
                       //   sx={{
@@ -277,21 +238,21 @@ const AllAttributeTable = () => {
                       //   }}
                     >
                       {product.shortDesc}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                 </Box>
               </TableCell>
 
               <TableCell>
                 <Typography color="textSecondary" variant="h6">
-                  <BasicPopover data={product.categories.map((c) => c.name)} />
+                  <BasicPopover data={att.values.map((val) => val.title)} />
                   {/* {product.categories.map((c) => c.name).join(" ")} */}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography color="textSecondary" variant="h6">
                   <BasicPopover
-                    data={product.customs.map((c) => c.custom.name)}
+                    data={att.values.map((val) => val.title)}
                   />
                   {/* {product.customs.map((c) => c.custom.name).join(" ")} */}
                 </Typography>

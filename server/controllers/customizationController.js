@@ -1,20 +1,20 @@
 const { isValidObjectId } = require("mongoose");
-const Attribute = require("../models/attribute");
+const Customization = require("../models/customization");
 
-const getAttribute = async (req, res) => {
-  const attributes = await Attribute.find({});
-  if (!attributes) {
+const getCustomizations = async (req, res) => {
+  const customizations = await Customization.find({});
+  if (!customizations) {
     return res.status(404).json({
       error: "no data found",
     });
   }
   // will be better if we send images along
   return res.status(200).json({
-    attributes,
+    customizations,
   });
 };
 
-// const addAttribute = async (req, res) => {
+// const addCustomization = async (req, res) => {
 
 //   // will also receive multipart/form-data
 
@@ -22,8 +22,8 @@ const getAttribute = async (req, res) => {
 
 //   const data = JSON.parse(req.body.data);
 
-//   const attributeName = Object.keys(data)[0];
-//   const variants = data[attributeName].map((el) => ({
+//   const customizationName = Object.keys(data)[0];
+//   const variants = data[customizationName].map((el) => ({
 //     title: el.title,
 //     imgSrc: '/public/images/custom/' +  el.title + '.jpg',
 // }));
@@ -45,37 +45,37 @@ const getAttribute = async (req, res) => {
 //   //   try {
 //   //     // construct variants array
 
-//   const attribute = await Attribute.create({
-//     name: attributeName,
+//   const customization = await Customization.create({
+//     name: customizationName,
 //     values,
 //   });
 //   return res.status(200).json({
-//     attribute,
+//     customization,
 //   });
 // };
 
-const addAttribute = async (req, res) => {
-  const { name: attributeName, images } = req.body;
-  const isExist = await Attribute.findOne({ name: attributeName });
+const addCustomization = async (req, res) => {
+//   const { name: customizationName, images } = req.body;
+  const { name } = req.body;
+  const isExist = await Customization.findOne({ name });
   console.log(isExist);
   if (isExist) {
-    console.log("got in if");
+    console.log("got in");
     return res.status(406).json({
-      message: "Attribute already available",
+      message: "Customization already available",
     });
   }
   console.log(req.body);
 
   try {
-    const attribute = await Attribute.create({
-      name: attributeName,
-      hasImages: images,
-      values: [],
+    const customization = await Customization.create({
+      name,
+      variants: [],
     });
 
     return res.status(201).json({
-      message: "attribute created",
-      attribute,
+    //   message: "customization created",
+      customization,
     });
   } catch (err) {
     console.log(err);
@@ -87,19 +87,19 @@ const addAttribute = async (req, res) => {
 
 
 // not handling images
-const updateAttribute = async (req, res) => {
+const updateCustomization = async (req, res) => {
   const { id } = req.params;
   // check if id is given
   if (!id) {
     return res.status(400).json({
-      error: "please provide id of the attribute to be updated",
+      error: "please provide id of the customization to be updated",
     });
   }
   // check if the id of type mongoose.ObjectId
   const isValid = isValidObjectId(id);
   if(!isValid){
     return res.status(400).json({
-      error: "invalid attribute id"
+      error: "invalid customization id"
     })
   }
 
@@ -115,24 +115,24 @@ const updateAttribute = async (req, res) => {
   }
 
   try {
-    const attribute = await Attribute.findById(id);
-    if (!attribute) {
+    const customization = await Customization.findById(id);
+    if (!customization) {
       return res.status(400).json({
-        error: "no such attribute exists",
+        error: "no such customization exists",
       });
     }
     // check if the title is already available
-    const isAlreadyAvailable = attribute.values.find(el => el.title === title);
+    const isAlreadyAvailable = customization.variants.find(el => el.title === title);
     if(isAlreadyAvailable){
       return res.status(400).json({
-        error: "this is already present in the current attribute"
+        error: "this is already present in the current customization"
       })
     }
 
-    attribute.values.push({title, imgSrc})
-    const updatedAttribute = await attribute.save();
+    customization.variants.push({title, imgSrc})
+    const updatedCustomization = await customization.save();
     return res.status(200).json({
-      updatedAttribute,
+      updatedCustomization,
       file: req.file
     });
   } catch (err) {
@@ -144,7 +144,7 @@ const updateAttribute = async (req, res) => {
 };
 
 module.exports = {
-  getAttribute,
-  addAttribute,
-  updateAttribute,
+  getCustomizations,
+  addCustomization,
+  updateCustomization,
 };

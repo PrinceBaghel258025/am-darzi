@@ -41,29 +41,31 @@ const getCategory = async (req, res) => {
 
 // will be an admin route in future
 const addCategory = async (req, res) => {
-  const images = req.files.map((file) => file.originalname);
+  // const images = req.files.map((file) => file.originalname);
 
-  let { name, subCategories } = req.body;
+  let { categoryName, subCatName } = req.body;
 
-  if (!name) {
+  if (!categoryName) {
     return res.status(400).json({
       message: "Provide all the data",
     });
   }
-  if (!subCategories) {
+  if (!subCatName) {
     subCategories = [];
   }
   try {
     const category = await Category.create({
-      name,
-      images,
-      subCategories,
+      name : categoryName,
+      images: [],
+      subCategories : subCatName !== undefined ? [{name: subCatName}] : [],
     });
 
     console.log(category);
 
     // need to handle subcategories
-    return res.send(category);
+    return res.status(201).json({
+      category
+    });
   } catch (err) {
     console.log(err);
     return res.send("error");

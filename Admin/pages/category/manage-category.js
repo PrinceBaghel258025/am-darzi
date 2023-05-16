@@ -22,9 +22,22 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import BaseCard from "../../src/components/baseCard/BaseCard";
+import categoryServices from "../../src/services/category";
 const attributes = ["color", "fabric"];
 
-const Add = () => {
+export async function getServerSideProps(context) {
+  const categories = await categoryServices.getCategories();
+  return {
+    props: {
+      categories
+    }
+  }
+}
+
+const Add = ({categories}) => {
+  console.log(categories)
+  console.log( categories.map(cat => cat.name))
+
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
 
@@ -72,9 +85,9 @@ const Add = () => {
                 defaultValue={null}
                 //   helperText="Please select your currency"
               >
-                {attributes.map((att) => (
-                  <MenuItem key={att} value={att}>
-                    {att}
+                {categories.map((cat) => (
+                  <MenuItem key={cat} value={cat.name}>
+                    {cat.name}
                   </MenuItem>
                 ))}
               </TextField>

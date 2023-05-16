@@ -26,13 +26,20 @@ const getAllAttributes = async () => {
     }
 }
 
-const updateAttribute = async (req, res) => {
+const updateAttribute = async (attId, data) => {
   try{
-    const res = axios.patch(`${baseUrl}`)
+    console.log("inside attribute service", data)
+    const res = await axios.post(`${baseUrl}/${attId}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    console.log("this is req",res);
+    return res.data;
   } catch(err) {
     console.log(err)
-    return null;
+    return err.response.data;
   }
 }
 
-export default { addAttribute, getAllAttributes };
+export default { addAttribute, getAllAttributes, updateAttribute };

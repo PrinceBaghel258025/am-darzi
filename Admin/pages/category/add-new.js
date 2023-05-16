@@ -14,13 +14,18 @@ import BaseCard from "../../src/components/baseCard/BaseCard";
 import NextLink from "next/link";
 import { useState } from "react";
 import { v4 as uuid4 } from "uuid";
+import {useForm} from 'react-hook-form'
+import categoryServices from "../../src/services/category";
 
 const attributes = ["color", "fabric"];
 
 const AddNewCategory = () => {
+
   const [fields, setFields] = useState([
     { title: "Sub Category Name 1", key: 557687687 },
   ]);
+
+  const {register, handleSubmit, reset}  = useForm();
 
   const addMore = () => {
     const key = uuid4();
@@ -35,7 +40,7 @@ const AddNewCategory = () => {
   };
 
   const handleRemove = (field, key) => {
-    console.log("key", key)
+    console.log("key", key);
     setFields((prev) => {
       const updatedFields = prev.filter((el) => (el.key !== key ? el : null));
       console.log(updatedFields);
@@ -43,8 +48,15 @@ const AddNewCategory = () => {
     });
   };
 
+  const onSubmit = async (data) => {
+    console.log(data)
+    const category = await categoryServices.addCategory(data);
+    console.log(category)
+  }
+
   return (
     <BaseCard title="Add New Category">
+      <form onSubmit={handleSubmit(onSubmit)}>
       <Stack gap={2}>
         <Stack
           gap={20}
@@ -63,19 +75,20 @@ const AddNewCategory = () => {
           </Box>
           <Stack direction="col" justifyItems={"center"} gap={1}>
             <TextField
+              {...register("categoryName")}
               id="outlined-select-attribute"
               size="small"
-              select
-              label="Select any one"
+              // select
+              label="Enter Category Name"
               //   defaultValue="select any one"
               required
               //   helperText="Please select your currency"
             >
-              {attributes.map((att) => (
+              {/* {attributes.map((att) => (
                 <MenuItem key={att} value={att}>
                   {att}
                 </MenuItem>
-              ))}
+              ))} */}
             </TextField>
             {/* <NextLink href={"/category/add-new"}>
               <Button variant="contained">
@@ -110,21 +123,22 @@ const AddNewCategory = () => {
                   id="sub-cattegory-name"
                   size="small"
                   label="Type sub-category name"
+                  {...register("subCatName")}
                   //   defaultValue="select any one"
                   required
                   //   helperText="Please select your currency"
                 />
-                <Button
+                {/* <Button
                   variant="contained"
                   onClick={() => handleRemove(field, field.key)}
                 >
                   <CancelIcon />
-                </Button>
+                </Button> */}
               </Stack>
             </Stack>
           );
         })}
-        <Stack
+        {/* <Stack
           gap={20}
           direction="row"
           alignItems={"center"}
@@ -152,24 +166,25 @@ const AddNewCategory = () => {
               <CancelIcon />
             </Button>
           </Stack>
-        </Stack>
+        </Stack> */}
       </Stack>
 
-      <Box mt={4}>
+      {/* <Box mt={4}>
         <Button variant="contained" onClick={addMore}>
           <AddIcon />
           <Typography>Add More</Typography>
         </Button>
-      </Box>
+      </Box> */}
 
       <Stack direction={"row"} my={8} gap={4}>
-        <Button variant={"contained"} size={"large"} width={8}>
+        <Button type={"submit"} variant={"contained"} size={"large"} width={8}>
           Submit
         </Button>
-        <Button variant={"outlined"} size={"medium"}>
+        <Button type={"reset"} variant={"outlined"} size={"medium"}>
           Reset
         </Button>
       </Stack>
+      </form>
     </BaseCard>
   );
 };

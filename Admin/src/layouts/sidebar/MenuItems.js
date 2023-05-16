@@ -20,6 +20,11 @@ const Menuitems = [
         href: "/attributes",
       },
       {
+        title: "Customizations",
+        icon: "home",
+        href: "/products/customizations",
+      },
+      {
         title: "Tax",
         icon: "home",
         href: "/tax",
