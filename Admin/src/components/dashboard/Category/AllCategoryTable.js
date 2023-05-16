@@ -11,6 +11,7 @@ import {
   Chip,
   List,
   Button,
+  Stack
 } from "@mui/material";
 import BaseCard from "../../baseCard/BaseCard";
 import NestedList from "../Products/List";
@@ -33,165 +34,6 @@ const useStyles = (theme) => ({
   },
 });
 
-// const products = [
-//   {
-//     id: "1",
-//     name: "Sunil Joshi",
-//     post: "Web Designer",
-//     pname: "Elite Admin",
-//     priority: "Low",
-//     pbg: "primary.main",
-//     budget: "3.9",
-//   },
-//   {
-//     id: "2",
-//     name: "Andrew McDownland",
-//     post: "Project Manager",
-//     pname: "Real Homes WP Theme",
-//     priority: "Medium",
-//     pbg: "secondary.main",
-//     budget: "24.5",
-//   },
-//   {
-//     id: "3",
-//     name: "Christopher Jamil",
-//     post: "Project Manager",
-//     pname: "MedicalPro WP Theme",
-//     priority: "High",
-//     pbg: "error.main",
-//     budget: "12.8",
-//   },
-//   {
-//     id: "4",
-//     name: "Nirav Joshi",
-//     post: "Frontend Engineer",
-//     pname: "Hosting Press HTML",
-//     priority: "Critical",
-//     pbg: "success.main",
-//     budget: "2.4",
-//   },
-// ];
-
-const products = [
-  {
-    _id: "6454836fcdc405373b26ccf5",
-    name: "black suit",
-    shortDesc: "Product 1",
-    description:
-      "dfghjds fgdsjf dj hfkjdhkjad fadf asf adsf dasf das f asf a  ",
-    price: 56789,
-    color: ["red", "brown", "orange"],
-    fabric: ["cotton", "silk"],
-    occasion: ["Wedding", "casual"],
-    categories: [
-      {
-        name: "Tuxedo",
-      },
-    ],
-    customs: [
-      {
-        custom: {
-          _id: "64537b6383f7b06e40d2024b",
-          name: "lapels",
-          variants: [
-            {
-              title: "patch",
-              imgSrc: "/public/images/custom/patch.jpg",
-              _id: "64537b6383f7b06e40d2024c",
-            },
-            {
-              title: "patch-with-flap",
-              imgSrc: "/public/images/custom/patch-with-flap.jpg",
-              _id: "64537b6383f7b06e40d2024d",
-            },
-            {
-              title: "slant-flap",
-              imgSrc: "/public/images/custom/slant-flap.jpg",
-              _id: "64537b6383f7b06e40d2024e",
-            },
-            {
-              title: "straight-flap",
-              imgSrc: "/public/images/custom/straight-flap.jpg",
-              _id: "64537b6383f7b06e40d2024f",
-            },
-            {
-              title: "straight-no-flap",
-              imgSrc: "/public/images/custom/straight-no-flap.jpg",
-              _id: "64537b6383f7b06e40d20250",
-            },
-          ],
-          createdAt: "2023-05-04T09:31:15.463Z",
-          updatedAt: "2023-05-04T09:31:15.463Z",
-          __v: 0,
-        },
-        pattern: "0 1 0 1 0 0",
-        _id: "6454836fcdc405373b26ccf6",
-      },
-    ],
-    createdAt: "2023-05-05T04:17:51.974Z",
-    updatedAt: "2023-05-05T04:17:51.974Z",
-    __v: 0,
-  },
-  {
-    _id: "6454836fcdc405373b26ccf5",
-    name: "black suit",
-    shortDesc: "Product 2",
-    description: "dfghjds fgdsjf dj hfkjdhkjad",
-    price: 56789,
-    color: ["red", "brown", "orange"],
-    fabric: ["cotton", "silk"],
-    occasion: ["Wedding", "casual"],
-    categories: [
-      {
-        name: "Tuxedo",
-      },
-    ],
-    customs: [
-      {
-        custom: {
-          _id: "64537b6383f7b06e40d2024b",
-          name: "lapels",
-          variants: [
-            {
-              title: "patch",
-              imgSrc: "/public/images/custom/patch.jpg",
-              _id: "64537b6383f7b06e40d2024c",
-            },
-            {
-              title: "patch-with-flap",
-              imgSrc: "/public/images/custom/patch-with-flap.jpg",
-              _id: "64537b6383f7b06e40d2024d",
-            },
-            {
-              title: "slant-flap",
-              imgSrc: "/public/images/custom/slant-flap.jpg",
-              _id: "64537b6383f7b06e40d2024e",
-            },
-            {
-              title: "straight-flap",
-              imgSrc: "/public/images/custom/straight-flap.jpg",
-              _id: "64537b6383f7b06e40d2024f",
-            },
-            {
-              title: "straight-no-flap",
-              imgSrc: "/public/images/custom/straight-no-flap.jpg",
-              _id: "64537b6383f7b06e40d20250",
-            },
-          ],
-          createdAt: "2023-05-04T09:31:15.463Z",
-          updatedAt: "2023-05-04T09:31:15.463Z",
-          __v: 0,
-        },
-        pattern: "0 1 0 1 0 0",
-        _id: "6454836fcdc405373b26ccf6",
-      },
-    ],
-    createdAt: "2023-05-05T04:17:51.974Z",
-    updatedAt: "2023-05-05T04:17:51.974Z",
-    __v: 0,
-  },
-];
-
 const baseUrl = "http://localhost:5000";
 
 const AllCategoryTable = ({ categories }) => {
@@ -209,6 +51,14 @@ const AllCategoryTable = ({ categories }) => {
       aria-label="simple table"
       sx={{
         mt: 3,
+        "& .MuiTableCell-root": {
+          px: 1,
+          py: 1,
+        },
+        "& .MuiTableRow-root": {
+          padding: 1,
+          // margin: 2
+        },
         // whiteSpace: "nowrap",
       }}
     >
@@ -298,7 +148,7 @@ const AllCategoryTable = ({ categories }) => {
 
             <TableCell>
               <Typography color="textSecondary" variant="h6">
-                <NextLink href={`/category/products/${cat._id}`}>
+                <NextLink href={`/categories/products/${cat._id}`}>
                   <Button variant="outlined">view</Button>
                 </NextLink>
                 {/* {product.categories.map((c) => c.name).join(" ")} */}
@@ -316,18 +166,20 @@ const AllCategoryTable = ({ categories }) => {
                 {/* {product.customs.map((c) => c.custom.name).join(" ")} */}
               </Typography>
             </TableCell>
-            <TableCell>
-              <NextLink href={`/category/edit/${cat._id}`}>
-                <Button variant="outlined">
-                  <EditIcon />
-                </Button>
-              </NextLink>
-              <DeleteDialog id={cat._id} />
-              <NextLink href={`/category/${cat._id}`}>  
-                <Button variant="outlined">
-                  <InfoIcon />
-                </Button>
-              </NextLink>
+            <TableCell align="right" width={'20%'}>
+              <Stack flexWrap={'wrap'} direction="row" gap={1}>
+                <NextLink href={`/categories/edit/${cat._id}`}>
+                  <Button variant="outlined">
+                    <EditIcon />
+                  </Button>
+                </NextLink>
+                <DeleteDialog id={cat._id} />
+                <NextLink href={`/categories/${cat._id}`}>
+                  <Button variant="outlined">
+                    <InfoIcon />
+                  </Button>
+                </NextLink>
+              </Stack>
             </TableCell>
 
             {/* <TableCell align="right">

@@ -42,9 +42,9 @@ const Menuitems = [
     ],
   },
   {
-    title: "Category",
+    title: "Categories",
     icon: "disc",
-    href: "/category"
+    href: "/categories"
     // href: "/category",( create , view, update(((add new subcategory))) (handle subcategories))
   },
   {

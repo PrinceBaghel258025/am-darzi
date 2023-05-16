@@ -7,6 +7,8 @@ import BaseCard from "../../src/components/baseCard/BaseCard";
 
 import categoryServices from '../../src/services/category'
 
+import TableTop from "../../src/components/common/TableTop";
+
 const top100Films = [
   "ghjkfd",
   "ghjkfd",
@@ -69,7 +71,8 @@ const Category = () => {
       <BaseCard title="Categories">
         <Grid container spacing={0}>
           <Grid item xs={12} lg={12}>
-            <Box align="right">
+            <TableTop data={categories} isLoading={isLoading} title={"Categories"} />
+            {/* <Box align="right">
               <NextLink href="/category/manage-category">
                 <Button variant="outlined" px={6} py={4} size={'large'}>Manage Categoies</Button>
               </NextLink>
@@ -93,7 +96,7 @@ const Category = () => {
                   )}
                 />
               </Stack>
-            </Stack>
+            </Stack> */}
             <AllCategoryTable categories={categories} />
           </Grid>
         </Grid>

@@ -7,21 +7,23 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
+  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Dialog2 = ({id}) => {
+const Dialog2 = ({id, serviceName}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setIsOpen(true);
   };
 
-  const handleCloseAgree = () => {
+  const handleAgree = async () => {
     console.log("send delete request");
+    await
     setIsOpen(false);
   };
-  const handleCloseDisAgree = () => {
+  const handleDisAgree = () => {
     console.log("user disagreed to delete the product");
     setIsOpen(false);
   };
@@ -33,23 +35,24 @@ const Dialog2 = ({id}) => {
       </Button>
       <Dialog
         open={isOpen}
-        onClose={handleCloseDisAgree}
+        onClose={handleDisAgree}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Are your sure?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {id}
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            {/* {id} */}
+            <Typography>Deleted data can not be recovered in any case.</Typography>
+            {"\t"}
+            <Typography>Think Twice!!</Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDisAgree}>Disagree</Button>
-          <Button onClick={handleCloseAgree} autoFocus>
+          <Button onClick={handleDisAgree}>Disagree</Button>
+          <Button onClick={handleAgree} autoFocus>
             Agree
           </Button>
         </DialogActions>

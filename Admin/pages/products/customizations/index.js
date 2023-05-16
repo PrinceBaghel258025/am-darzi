@@ -11,89 +11,37 @@ import NextLink from "next/link";
 import BaseCard from "../../../src/components/baseCard/BaseCard";
 import customizationServices from "../../../src/services/customization";
 import CustomizationsTable from "../../../src/components/dashboard/Products/Customizations/CustomizationsTable";
+import TableTop from "../../../src/components/common/TableTop";
+import { useQuery } from "@tanstack/react-query";
+import {useRouter} from 'next/router'
 
-const top100Films = [
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-  "ghjkfd",
-];
+// export async function getServerSideProps(context) {
+//   const customs = await customizationServices.getAllCustomizations();
+
+//   return {
+//     props: {
+//       customs,
+//     },
+//   };
+// }
+
+const Customizations = () => {
 
 
-
-export async function getServerSideProps(context) {
-  const customs = await customizationServices.getAllCustomizations();
-
-  return {
-    props: {
-      customs,
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["customizations"],
+    queryFn: async () => {
+      return await customizationServices.getAllCustomizations();
     },
-  };
-}
-
-const Customizations = ({ customs }) => {
-  console.log(customs);
+  });
+  console.log(data);
 
   return (
     <BaseCard title="All Customizations">
       <Grid container spacing={0}>
         <Grid item xs={12} lg={12}>
-          <Box align="right">
-            <NextLink href="/products/customizations/manage-customizations">
-              <Button variant="outlined">Manage Customizations</Button>
-            </NextLink>
-          </Box>
-          <Stack
-            mt={2}
-            direction="row"
-            justifyContent="space-between"
-            alignItems={"center"}
-          >
-            <Typography fontSize={18} fontWeight={600}>
-              Customizations
-            </Typography>
-            <Stack spacing={2} sx={{ width: 300 }}>
-              <Autocomplete
-                id="free-solo-demo"
-                freeSolo
-                options={customs.map((option) => option.name)}
-                renderInput={(params) => (
-                  <TextField {...params} label="Search Customizations ..." />
-                )}
-              />
-            </Stack>
-          </Stack>
-          <CustomizationsTable customs={customs} />
+          <TableTop data={data} title={'Customizations'} isLoading={isLoading} />
+          {isLoading ? "Loading..." : <CustomizationsTable customs={data} />}
         </Grid>
       </Grid>
     </BaseCard>

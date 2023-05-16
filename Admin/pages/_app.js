@@ -10,8 +10,10 @@ import FullLayout from "../src/layouts/FullLayout";
 import "../styles/style.css";
 
 import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+const queryClient = new QueryClient();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -22,12 +24,14 @@ export default function MyApp(props) {
         <title>Flexy NextJs Starter kit page</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
+      <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <FullLayout>
           <Component {...pageProps} />
         </FullLayout>
       </ThemeProvider>
+      </QueryClientProvider>
     </CacheProvider>
   );
 }

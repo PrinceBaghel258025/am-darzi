@@ -42,4 +42,14 @@ const updateAttribute = async (attId, data) => {
   }
 }
 
-export default { addAttribute, getAllAttributes, updateAttribute };
+const deleteAttribute = async (attId) => {
+    try{
+        console.log("inside delete attribute service");
+        return "working"
+    } catch(err) {
+        console.log(err);
+        return err;
+    }
+}
+
+export default { addAttribute, getAllAttributes, updateAttribute, deleteAttribute };

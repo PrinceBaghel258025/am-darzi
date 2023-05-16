@@ -91,7 +91,7 @@ const Add = ({categories}) => {
                   </MenuItem>
                 ))}
               </TextField>
-              <NextLink href={"/category/add-new"}>
+              <NextLink href={"/categories/add-new"}>
                 <Button variant="contained">
                   <AddCircleOutlineIcon />
                 </Button>
