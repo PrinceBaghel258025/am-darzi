@@ -16,6 +16,7 @@ import { useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import { useFieldArray, useForm } from "react-hook-form";
 import categoryServices from "../../src/services/category";
+import { toast } from "react-toastify";
 
 const attributes = ["color", "fabric"];
 
@@ -58,8 +59,45 @@ const AddNewCategory = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    // const category = await categoryServices.addCategory(data);
-    // console.log(category);
+    // console.log(data['primary-image'][0])
+    const formData = new FormData();
+
+    // console.log(data['sub-cats'])
+    // console.log(data['sub-cats'].map(el => el.img.length !== 0 ? el.img[0] : null))
+    // formData.append('sub-cats', data['sub-cats'].map(el => el.img[0]))
+    formData.append("categoryName", data.categoryName);
+    formData.append("categoryImage", data.categoryImage[0]);
+    formData.append("sub-cats", JSON.stringify(data["sub-cats"]));
+    // formData.append('primaryimage', data['primary-image'][0])
+    const res = await categoryServices.addCategory(formData);
+    console.log(res);
+    if (res.category === null) {
+      console.log("got here");
+      toast.error(`${res.message}`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      reset();
+    } else {
+      console.log("got success in posting");
+      toast.success(`${res.message}`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      reset();
+    }
   };
 
   return (
@@ -106,8 +144,8 @@ const AddNewCategory = () => {
               >
                 Image
                 <input
-                required
-                  {...register("primary-image", {required: true})}
+                  required
+                  {...register("categoryImage", { required: true })}
                   hidden
                   accept="image/*"
                   type="file"
@@ -151,7 +189,7 @@ const AddNewCategory = () => {
                     required
                     //   helperText="Please select your currency"
                   />
-                  <Button
+                  {/* <Button
                     sx={{ backgroundColor: "blue" }}
                     variant="contained"
                     size="small"
@@ -165,7 +203,7 @@ const AddNewCategory = () => {
                       type="file"
                       // onChange={(e) => setSelectedImage(e.target.files[0])}
                     />
-                  </Button>
+                  </Button> */}
                   <Button
                     type="button"
                     variant="contained"

@@ -18,7 +18,7 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NextLink from "next/link";
 import { useState, useEffect } from "react";
-
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 import BaseCard from "../../src/components/baseCard/BaseCard";
@@ -38,7 +38,7 @@ const Add = ({categories}) => {
   console.log(categories)
   console.log( categories.map(cat => cat.name))
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [data, setData] = useState("");
 
   // image preview related
@@ -50,8 +50,38 @@ const Add = ({categories}) => {
   //     setImageUrl(URL.createObjectURL(selectedImage));
   //   }
   // }, [selectedImage]);
-  const submitForm = (data) => {
+  const submitForm = async (data) => {
     console.log(data);
+    const {_id : id} = categories.find(cat => cat.name === data['selected-category'])
+    console.log("id", id)
+    const res = await categoryServices.updateCategory(id, data);
+    if (res.updatedCategory === null) {
+        console.log("got here");
+        toast.error(`${res.message}`, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        reset();
+      } else {
+        console.log("got success in posting");
+        toast.success(`${res.message}`, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        reset();
+      }
   }
 
   return (
@@ -115,7 +145,7 @@ const Add = ({categories}) => {
             </Box>
             <Stack justifyItems={"center"} gap={1}>
               <TextField
-              {...register('sub-category-image')}
+              {...register('sub-category-name')}
                 // id="sub-cattegory-name"
                 size="small"
                 label="Type sub-category name"
@@ -123,47 +153,6 @@ const Add = ({categories}) => {
                 required
                 //   helperText="Please select your currency"
               />
-            </Stack>
-          </Stack>
-          <Stack
-            gap={20}
-            direction="row"
-            alignItems={"center"}
-            fontWeight={600}
-            sx={{
-              "& .MuiTextField-root": { width: "25ch" },
-              "& .MuiTypography-root": { fontWeight: 400, fontSize: 20 },
-
-              //   border: 'none'
-            }}
-          >
-            <Box sx={{ width: 400 }}>
-              <Typography>Add Sub-Category Image</Typography>
-            </Box>
-            <Stack direction="row" justifyItems={"center"} gap={1}>
-              <Button
-                sx={{ width: "25ch", backgroundColor: "blue" }}
-                variant="contained"
-                size="large"
-                component="label"
-              >
-                Upload Primary Image
-                <input
-                  {...register("primary-image")}
-                  hidden
-                  accept="image/*"
-                  type="file"
-                  // onChange={(e) => setSelectedImage(e.target.files[0])}
-                />
-              </Button>
-
-              {/* // image preview/ */}
-              {/* {imageUrl && selectedImage && (
-              //   <Box mt={2} textAlign="center">
-            //     <div>Image Preview:</div>
-            //     <img src={imageUrl} alt={selectedImage.name} height="100px" />
-            //   </Box>
-            // )} */}
             </Stack>
           </Stack>
         </Stack>

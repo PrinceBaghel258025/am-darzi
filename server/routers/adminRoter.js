@@ -1,4 +1,5 @@
 const express = require('express')
+const multer = require('multer')
 const router = express.Router();
 
 // utils
@@ -16,7 +17,9 @@ router.get('/categories', categoryController.getAllCategories)
 router.get('/categories/:id', categoryController.getCategory)
 router.get('/categories/products/:catId', productController.getByCategories)
 router.patch('/categories/:id', upload.array("images"), categoryController.updateCategory);
-router.post('/categories', categoryController.addCategory);
+// router.post('/categories', upload.single("primaryimage"), categoryController.addCategory);
+// router.post('/categories', upload.fields([{name: "primaryimage"}, {name: 'sub-cats'}]), categoryController.addCategory);
+router.post('/categories', upload.single('categoryImage'), categoryController.addCategory);
 
 router.get('/products', productController.getAllProducts)
 

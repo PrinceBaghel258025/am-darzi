@@ -15,7 +15,7 @@ const designRouter = require('./routers/designRouter')
 
 // admin Router
 const adminRouter = require('./routers/adminRoter')
-
+// app.use(express.limit('200M'));
 app.use(express.json());
 app.use(cors())
 connect(process.env.MONGODB_URi);

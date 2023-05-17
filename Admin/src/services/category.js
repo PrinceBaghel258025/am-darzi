@@ -25,9 +25,30 @@ const productsByCategory = async (id) => {
 }
 
 const addCategory = async (data) => {
-    const res = await axios.post(`${baseUrl}/categories`, data);
-    console.log(res)
-    return res.data.category;
+    try{
+
+        const res = await axios.post(`${baseUrl}/categories`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log(res)
+        // return res.data.category;
+        return {category: res.data.category, message: 'Created successfully'};
+    } catch (err){
+        console.log(err.response.data.message);
+        return {category: null, message: err.response.data.message}
+    }
 }
 
-export default {getCategories, getCategory, productsByCategory, addCategory}
+const updateCategory = async (id, data) => {
+    try{
+        const res = await axios.patch(`${baseUrl}/categories/${id}`, data);
+        return {updatedCategory : res.data.updateCategory, message: "Added Successfully"}
+    } catch(err){
+        console.log("updateCategory Error")
+        return {updatedCategory: null, message: err.response.data.message}
+    }
+}
+
+export default {getCategories, getCategory, productsByCategory, addCategory, updateCategory}

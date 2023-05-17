@@ -12,9 +12,9 @@ const schema = new mongoose.Schema(
     },
     subCategories: {
         type: [
+            // advantage will be that every subCategory will be given an unique _id
             {
               name: String,
-              images: [String],
             },
           ]
     },

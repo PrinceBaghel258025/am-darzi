@@ -8,7 +8,7 @@ import theme from "../src/theme/theme";
 import createEmotionCache from "../src/createEmotionCache";
 import FullLayout from "../src/layouts/FullLayout";
 import "../styles/style.css";
-
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -25,12 +25,13 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <FullLayout>
-          <Component {...pageProps} />
-        </FullLayout>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <FullLayout>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </FullLayout>
+        </ThemeProvider>
       </QueryClientProvider>
     </CacheProvider>
   );
