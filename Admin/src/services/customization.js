@@ -27,6 +27,7 @@ const getAllCustomizations = async () => {
     }
 }
 
+// add variants
 const updateCustomization = async (cusId, data) => {
   try{
     console.log(cusId)
@@ -44,4 +45,17 @@ const updateCustomization = async (cusId, data) => {
   }
 }
 
-export default { addCustomization, getAllCustomizations, updateCustomization };
+// also patch
+const removeCustomizationVariants = async (customId, variantId) => {
+    console.log("hit deleteCustomization")
+    try{
+        const res = await axios.patch(`${baseUrl}/${customId}/${variantId}`,{
+            variantId
+        });
+        console.log(res);
+    } catch(err){
+        console.log(err)
+    }
+}
+
+export default { addCustomization, getAllCustomizations, updateCustomization, removeCustomizationVariants };

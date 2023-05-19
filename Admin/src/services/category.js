@@ -50,5 +50,14 @@ const updateCategory = async (id, data) => {
         return {updatedCategory: null, message: err.response.data.message}
     }
 }
+const deleteCategory = async (id) => {
+    console.log("hit deleteCategory")
+    try{
+        const res = await axios.delete(`${baseUrl}/categories/${id}`);
+        console.log(res);
+    } catch(err){
+        console.log(err)
+    }
+}
 
-export default {getCategories, getCategory, productsByCategory, addCategory, updateCategory}
+export default {getCategories, getCategory, productsByCategory, addCategory, updateCategory, deleteCategory}

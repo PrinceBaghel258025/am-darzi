@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 
 import AllCategoryTable from "../../src/components/dashboard/Category/AllCategoryTable";
 import BaseCard from "../../src/components/baseCard/BaseCard";
+import { useQuery } from "@tanstack/react-query";
 
 import categoryServices from '../../src/services/category'
 
@@ -49,18 +50,22 @@ const top100Films = [
 
 const Category = () => {
 
-  const [categories, setCategories] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+    const {data : categories, isLoading} = useQuery({
+        queryKey: ["categories"],
+        queryFn: async () => await categoryServices.getCategories()
+    })
+//   const [categories, setCategories] = useState([]);
+//   const [isLoading, setLoading] = useState(false);
  
-  useEffect(() => {
-    setLoading(true);
-    categoryServices.getCategories()
-      .then((data) => {
-        console.log("data", data)
-        setCategories(data);
-        setLoading(false);
-      });
-  }, []);
+//   useEffect(() => {
+//     setLoading(true);
+//     categoryServices.getCategories()
+//       .then((data) => {
+//         console.log("data", data)
+//         setCategories(data);
+//         setLoading(false);
+//       });
+//   }, []);
  
   if (isLoading) return <p>Loading...</p>;
   if (!categories) return <p>No profile data</p>;

@@ -10,8 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useQueryClient } from "@tanstack/react-query";
 
-const Dialog2 = ({id, serviceName}) => {
+
+const Dialog2 = ({id, action, query, customId}) => {
+    const queryClient = useQueryClient()
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -20,10 +23,16 @@ const Dialog2 = ({id, serviceName}) => {
 
   const handleAgree = async () => {
     console.log("send delete request");
-    await
+    if(!customId){
+        const isOk = await action(id);
+    } else {
+        const isOk = await action(customId, id);
+    }
+    queryClient.invalidateQueries([`${query}`])
     setIsOpen(false);
   };
   const handleDisAgree = () => {
+    console.log(customId)
     console.log("user disagreed to delete the product");
     setIsOpen(false);
   };

@@ -159,6 +159,7 @@ const AllAttributeTable = ({ attributes }) => {
                 <DeleteDialog
                   id={att._id}
                   action={attributeServices.deleteAttribute}
+                  query="attributes"
                 />
                 <NextLink
                   href={{

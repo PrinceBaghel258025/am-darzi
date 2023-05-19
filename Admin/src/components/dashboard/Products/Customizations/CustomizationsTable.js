@@ -15,6 +15,8 @@ import {
 import BasicPopover from "../../Products/BasicPopOver";
 import Image from "next/image";
 import img from "./../../../../../public/static/images/big/img5.jpg";
+import Dialog2 from "../../../common/DeleteDialog";
+import customizationServices from "../../../../services/customization";
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -153,7 +155,7 @@ const CustomizationsTable = ({customs}) => {
               </TableCell> */}
               <TableCell>
                 <Button variant="outlined"><EditIcon /></Button>
-                <Button variant="outlined"><DeleteIcon /></Button>
+                <Dialog2 id={variant._id} action={customizationServices.removeCustomizationVariants} query={"customizations"} customId={cus._id}/>
                 <Button variant="outlined"><InfoIcon /></Button>
 
               </TableCell>

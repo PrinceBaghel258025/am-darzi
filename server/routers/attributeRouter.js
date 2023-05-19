@@ -4,7 +4,7 @@ const path = require('path')
 const multer = require('multer')
 
 
-router.get('/get', attributeController.getAttribute)
+router.get('/get', attributeController.getAttributes)
 
 
 // Image Upload setting

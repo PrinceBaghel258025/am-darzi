@@ -1,7 +1,7 @@
 const { isValidObjectId } = require("mongoose");
 const Attribute = require("../models/attribute");
 
-const getAttribute = async (req, res) => {
+const getAttributes = async (req, res) => {
   const attributes = await Attribute.find({});
   if (!attributes) {
     return res.status(404).json({
@@ -143,8 +143,31 @@ const updateAttribute = async (req, res) => {
   }
 };
 
+const deleteAttribute = async (req, res) => {
+    const {id} = req.params;
+    if(!isValidObjectId(id)){
+        return res.status(402).json({
+            message: "MalFormed Id" 
+        })
+    }
+    try{
+        const data = await Attribute.findByIdAndDelete(id);
+        console.log(data);
+        return res.status(204).json({
+            message: "Attribute Deleted"
+        })
+    } catch(err){
+        console.log("delete Attribute");
+        return res.status(500).json({
+            message: "Internal server error"
+        })
+    }
+}
+
+
 module.exports = {
-  getAttribute,
+  getAttributes,
   addAttribute,
   updateAttribute,
+  deleteAttribute
 };

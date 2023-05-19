@@ -55,7 +55,7 @@ const getCustomizations = async (req, res) => {
 // };
 
 const addCustomization = async (req, res) => {
-//   const { name: customizationName, images } = req.body;
+  //   const { name: customizationName, images } = req.body;
   const { name } = req.body;
   const isExist = await Customization.findOne({ name });
   console.log(isExist);
@@ -74,7 +74,7 @@ const addCustomization = async (req, res) => {
     });
 
     return res.status(201).json({
-    //   message: "customization created",
+      //   message: "customization created",
       customization,
     });
   } catch (err) {
@@ -84,7 +84,6 @@ const addCustomization = async (req, res) => {
     });
   }
 };
-
 
 // not handling images
 const updateCustomization = async (req, res) => {
@@ -97,18 +96,18 @@ const updateCustomization = async (req, res) => {
   }
   // check if the id of type mongoose.ObjectId
   const isValid = isValidObjectId(id);
-  if(!isValid){
+  if (!isValid) {
     return res.status(400).json({
-      error: "invalid customization id"
-    })
+      error: "invalid customization id",
+    });
   }
 
   const { title } = req.body;
   const file = req.file;
-  console.log(file)
+  console.log(file);
   // console.log("body", title, images);
   // // console.log("typeof request", typeof req)
-  let imgSrc = '';
+  let imgSrc = "";
   if (req.file) {
     imgSrc = file.originalname;
     console.log(file);
@@ -122,18 +121,20 @@ const updateCustomization = async (req, res) => {
       });
     }
     // check if the title is already available
-    const isAlreadyAvailable = customization.variants.find(el => el.title === title);
-    if(isAlreadyAvailable){
+    const isAlreadyAvailable = customization.variants.find(
+      (el) => el.title === title
+    );
+    if (isAlreadyAvailable) {
       return res.status(400).json({
-        error: "this is already present in the current customization"
-      })
+        error: "this is already present in the current customization",
+      });
     }
 
-    customization.variants.push({title, imgSrc})
+    customization.variants.push({ title, imgSrc });
     const updatedCustomization = await customization.save();
     return res.status(200).json({
       updatedCustomization,
-      file: req.file
+      file: req.file,
     });
   } catch (err) {
     console.log(err);
@@ -143,8 +144,41 @@ const updateCustomization = async (req, res) => {
   }
 };
 
+const deleteVariant = async (req, res) => {
+  const { customId, variantId } = req.params;
+  console.log(customId, variantId);
+  try {
+    let customization = await Customization.findById(customId);
+    if (!customization) {
+      return res.status(400).json({
+        error: "No such customization exist",
+      });
+    }
+    let update = customization.variants.filter((cus) =>
+      cus._id.toString() !== variantId ? cus : null
+    );
+    // console.log(customization.variants[0]._id.toString())
+    console.log("update", update);
+    // customization = { ...customization, variants: update };
+    // console.log("customization", customization);
+    let updatedCustomization = await Customization.findByIdAndUpdate(
+      customId,
+      {variants: update}, {new : true}
+    );
+    // const updatedCustomization = await customization.save();
+    return res.status(204).json({
+      updatedCustomization,
+    });
+  } catch (err) {
+    console.log("deleteVariant error", err);
+    return res.status(400);
+  }
+  //   return res.status(200).send("ok");
+};
+
 module.exports = {
   getCustomizations,
   addCustomization,
   updateCustomization,
+  deleteVariant,
 };

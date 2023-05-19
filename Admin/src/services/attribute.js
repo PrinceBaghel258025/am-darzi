@@ -42,13 +42,13 @@ const updateAttribute = async (attId, data) => {
   }
 }
 
-const deleteAttribute = async (attId) => {
+const deleteAttribute = async (id) => {
+    console.log("hit deleteAttribute")
     try{
-        console.log("inside delete attribute service");
-        return "working"
-    } catch(err) {
-        console.log(err);
-        return err;
+        const res = await axios.delete(`${baseUrl}/${id}`);
+        console.log(res);
+    } catch(err){
+        console.log(err)
     }
 }
 

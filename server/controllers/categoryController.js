@@ -139,9 +139,31 @@ const updateCategory = async (req, res) => {
   });
 };
 
+const deleteCategory = async (req, res) => {
+    const {id} = req.params;
+    if(!isValidObjectId(id)){
+        return res.status(402).json({
+            message: "MalFormed Id" 
+        })
+    }
+    try{
+        const data = await Category.findByIdAndDelete(id);
+        console.log(data);
+        return res.status(204).json({
+            message: "Category Deleted"
+        })
+    } catch(err){
+        console.log("delete Category");
+        return res.status(500).json({
+            message: "Internal server error"
+        })
+    }
+}
+
 module.exports = {
   getAllCategories,
   addCategory,
   updateCategory,
   getCategory,
+  deleteCategory
 };

@@ -19,6 +19,7 @@ import BasicPopover from "../Products/BasicPopOver";
 import Image from "next/image";
 import NextLink from "next/link";
 import img from "./../../../../public/static/images/big/img5.jpg";
+import categoryServices from "../../../services/category";
 
 import DeleteDialog from "../../common/DeleteDialog";
 import EditIcon from "@mui/icons-material/Edit";
@@ -173,7 +174,7 @@ const AllCategoryTable = ({ categories }) => {
                     <EditIcon />
                   </Button>
                 </NextLink>
-                <DeleteDialog id={cat._id} />
+                <DeleteDialog id={cat._id} action={categoryServices.deleteCategory} query={'categories'} />
                 <NextLink href={`/categories/${cat._id}`}>
                   <Button variant="outlined">
                     <InfoIcon />
