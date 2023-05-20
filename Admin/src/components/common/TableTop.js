@@ -32,7 +32,7 @@ const TableTop = ({title, isLoading, data}) => {
             size="small"
             id="free-solo-demo"
             freeSolo
-            options={isLoading ? [] : data.map((option) => option.name)}
+            options={isLoading ? [] : data.length !== 0 ? data.map((option) => option.name) : []}
             renderInput={(params) => (
               <TextField {...params} label={`Search ${title} ...`} />
             )}
