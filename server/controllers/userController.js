@@ -50,17 +50,17 @@ const userRegistration = async (req, res) => {
   if (user) {
     res.send({ status: "Failed", message: "Email Already Exits" });
   } else {
-    if (firstname && lastname && email && password && retypepassword) {
-      if (password === retypepassword) {
+    // if (firstname && lastname && email && password && retypepassword) {
+      // if (password === retypepassword) {
         try {
           const salt = await bcrypt.genSalt(10);
           const hashPassword = await bcrypt.hash(password, salt);
           const doc = userModel({
-            firstname: firstname,
-            lastname: lastname,
+            // firstname: firstname,
+            // lastname: lastname,
             email: email,
             password: hashPassword,
-            retypepassword: retypepassword,
+            // retypepassword: retypepassword,
           });
           const user = await doc.save();
 
@@ -75,6 +75,7 @@ const userRegistration = async (req, res) => {
           userModel.password = null;
 
           if (user) {
+              // return res.status(200).json({...user, accessToken: token})
             res.send({
               status: "Success",
               message: "Registration Successfull",
@@ -90,37 +91,41 @@ const userRegistration = async (req, res) => {
           console.log(error);
           res.send({ status: "Failed", message: "Unable to Register" });
         }
-      } else {
-        res.send({
-          status: "Failed",
-          message: "Password And Confirm Password Doesn't Matched",
-        });
-      }
-    } else {
-      res.send({ status: "Failed", message: "All Fields Are Required" });
-    }
+      // } else {
+      //   res.send({
+      //     status: "Failed",
+      //     message: "Password And Confirm Password Doesn't Matched",
+      //   });
+      // }
+    // } else {
+    //   res.send({ status: "Failed", message: "All Fields Are Required" });
+    // }
   }
 };
 
 const userLogin = async (req, res) => {
+  console.log(req.body)
   try {
     const { email, password } = req.body;
     if (email && password) {
       const user = await userModel.findOne({ email: email });
       if (user != null) {
         const match = await bcrypt.compare(password, user.password);
-        if (user.email === email && match) {
+        if ( match) {
           //generate jwt
           const token = jwt.sign({ userID: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1d",
           });
-          res
-            .cookie("authToken", token, {
-              httpOnly: true,
-              secure: true,
-              sameSite: "None",
-            })
-            .json({ status: true });
+          // user.token = token;
+          return res.status(200).json({...user._doc, accessToken: token})
+          // res
+          //   .cookie("authToken", token, {
+          //     httpOnly: true,
+          //     secure: true,
+          //     sameSite: "None",
+          //   })
+          //   .json({ status: true });
+
         } else {
           res.send({
             status: "Failed",

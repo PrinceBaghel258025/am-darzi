@@ -10,6 +10,7 @@ import categoryServices from '../../src/services/category'
 
 import TableTop from "../../src/components/common/TableTop";
 
+import { useSession } from "next-auth/react";
 const top100Films = [
   "ghjkfd",
   "ghjkfd",
@@ -48,11 +49,13 @@ const top100Films = [
 ];
 
 
+
 const Category = () => {
 
+  const {data: {token}} = useSession()
     const {data : categories, isLoading} = useQuery({
         queryKey: ["categories"],
-        queryFn: async () => await categoryServices.getCategories()
+        queryFn: async () => await categoryServices.getCategories(token)
     })
 //   const [categories, setCategories] = useState([]);
 //   const [isLoading, setLoading] = useState(false);

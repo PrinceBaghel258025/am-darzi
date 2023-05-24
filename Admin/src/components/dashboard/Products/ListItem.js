@@ -3,16 +3,13 @@ import NextLink from "next/link";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import StarBorder from "@mui/icons-material/StarBorder";
 
-const ListItem = ({ element, isActive, setActive, index }) => {
+const ListItem = ({ element, onClose }) => {
   return (
     <div>
-      <NextLink href={element.href} backgroundColor={isActive ? 'orange' : ''} onClick={() => {
-        console.log('click happening')
-        setActive(index)
-      }}>
+      <NextLink href={element.href} >
         <ListItemButton
-          sx={{ pl: 2, backgroundColor: isActive ? "orange" : "" }}
-        //   onClick={() => setActive(i)}
+          sx={{ pl: 2}}
+          onClick={onClose}
         >
           <ListItemIcon>
             <StarBorder />

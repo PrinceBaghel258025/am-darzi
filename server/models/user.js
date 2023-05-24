@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 const schema = new mongoose.Schema({
      firstname:{
         type:String,
-        required:true,
+        // required:true,
     },
     lastname:{
         type:String,
-        required:true,
+        // required:true,
     },
     email:{
         type:String,
@@ -20,10 +20,10 @@ const schema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    token:{
-        type:String,
-        default:''
-    }
+    // token:{
+    //     type:String,
+    //     default:''
+    // }
     
 });
 

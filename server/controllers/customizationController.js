@@ -54,6 +54,31 @@ const getCustomizations = async (req, res) => {
 //   });
 // };
 
+const getCustomization = async (req,res) => {
+  const {id} = req.params;
+
+  if(!isValidObjectId(id)){
+    return res.status(400).json({
+      message: "Invalid Object Id"
+    })
+  }
+  try{
+    const customization = await Customization.findById(id);
+    if(!customization) {
+      return res.status(400).json({
+        message: "No such customization exist"
+      })
+    }
+    return res.status(200).json({
+      customization
+    })
+  }catch(err){
+    return res.status(500).json({
+      message: "something went wrong on the server"
+    })
+  }
+}
+
 const addCustomization = async (req, res) => {
   //   const { name: customizationName, images } = req.body;
   const { name } = req.body;
@@ -178,6 +203,7 @@ const deleteVariant = async (req, res) => {
 
 module.exports = {
   getCustomizations,
+  getCustomization,
   addCustomization,
   updateCustomization,
   deleteVariant,

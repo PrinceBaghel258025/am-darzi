@@ -164,9 +164,35 @@ const deleteAttribute = async (req, res) => {
     }
 }
 
+const getAttribute = async (req, res) => {
+  const {id } = req.params;
+  // console.log(id);
+  if(!isValidObjectId(id)){
+    return res.status(400).json({
+      error: "invalid id"
+    })
+  }
+  try{
+    const attribute = await Attribute.findById(id);
+  if (!attribute) {
+    return res.status(404).json({
+      error: "no data found",
+    });
+  }
+  // will be better if we send images along
+  return res.status(200).json({
+    attribute,
+  });
+  } catch(err){
+    console.log(err)
+    return res.status(503)
+  }
+}
+
 
 module.exports = {
   getAttributes,
+  getAttribute,
   addAttribute,
   updateAttribute,
   deleteAttribute

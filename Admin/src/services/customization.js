@@ -26,6 +26,15 @@ const getAllCustomizations = async () => {
         return null;
     }
 }
+const getCustomization = async (id) => {
+  // try{
+    const res = await axios.get(`${baseUrl}/${id}`);
+    return res.data;
+  // } catch(err){
+  //   console.log("err inside getCustomization");
+  //   return null;
+  // }
+}
 
 // add variants
 const updateCustomization = async (cusId, data) => {
@@ -58,4 +67,4 @@ const removeCustomizationVariants = async (customId, variantId) => {
     }
 }
 
-export default { addCustomization, getAllCustomizations, updateCustomization, removeCustomizationVariants };
+export default { addCustomization, getAllCustomizations, getCustomization, updateCustomization, removeCustomizationVariants };

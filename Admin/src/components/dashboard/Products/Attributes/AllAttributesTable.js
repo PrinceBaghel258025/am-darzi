@@ -25,6 +25,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import DeleteDialog from "../../../common/DeleteDialog";
 
 import attributeServices from "../../../../services/attribute";
+import DetailsModal from '../../../common/DetailsModal';
 
 const useStyles = (theme) => ({
   table: {
@@ -149,7 +150,7 @@ const AllAttributeTable = ({ attributes }) => {
                 <NextLink
                   href={{
                     pathname: `/attributes/edit/${att._id}`,
-                    query: att,
+                    // query: `${att._id}`,
                   }}
                 >
                   <Button variant="outlined">
@@ -161,7 +162,7 @@ const AllAttributeTable = ({ attributes }) => {
                   action={attributeServices.deleteAttribute}
                   query="attributes"
                 />
-                <NextLink
+                {/* <NextLink
                   href={{
                     pathname: `/attributes/${att._id}`,
                     query: att,
@@ -170,7 +171,10 @@ const AllAttributeTable = ({ attributes }) => {
                   <Button variant="outlined">
                     <InfoIcon />
                   </Button>
-                </NextLink>
+                </NextLink> */}
+                  <DetailsModal data={att} name="Attribute">
+                    <InfoIcon />
+                  </DetailsModal>
               </Stack>
             </TableCell>
 

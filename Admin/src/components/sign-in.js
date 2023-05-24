@@ -12,7 +12,8 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BaseCard from "../src/components/baseCard/BaseCard";
+import BaseCard from "./baseCard/BaseCard";
+import { signIn } from "next-auth/react";
 
 function Copyright(props) {
   return (
@@ -46,6 +47,7 @@ export default function SignInSide() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    signIn("credentials", { email: data.get("email"), password: data.get("password"), callbackUrl: '/', redirect: true })
   };
 
   return (

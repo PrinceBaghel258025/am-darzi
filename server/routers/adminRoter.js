@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 const router = express.Router();
-
+const {verifyAdmin} = require('../utils/functions')
 // utils
 const upload = require('../utils/upload.js')
 
@@ -16,7 +16,7 @@ const userController = require('../controllers/userController.js')
 router.post('/login', () => {})
 
 // categories
-router.get('/categories', categoryController.getAllCategories)
+router.get('/categories',verifyAdmin, categoryController.getAllCategories)
 router.get('/categories/:id', categoryController.getCategory)
 router.get('/categories/products/:catId', productController.getByCategories)
 router.patch('/categories/:id', upload.array("images"), categoryController.updateCategory);
@@ -32,12 +32,14 @@ router.get('/products', productController.getAllProducts)
 
 // Attributes
 router.get('/attributes', attributeController.getAttributes)
+router.get('/attributes/:id', attributeController.getAttribute)
 router.post('/attributes', attributeController.addAttribute)
 router.post('/attributes/:id',upload.single('images'), attributeController.updateAttribute)
 router.delete('/attributes/:id', attributeController.deleteAttribute)
 
 // Customizations
 router.get('/customizations', customizationController.getCustomizations);
+router.get('/customizations/:id', customizationController.getCustomization);
 router.post('/customizations', customizationController.addCustomization);
 router.patch('/customizations/:id',upload.single('images'), customizationController.updateCustomization);
 router.patch('/customizations/:customId/:variantId', customizationController.deleteVariant);
@@ -57,9 +59,9 @@ router.get('/orders', orderController.updateOrderToPaid)
 
 
 // Users
+router.post('/sign-in', userController.userLogin)
 router.get('/users', userController.getAllUsers)
-// router.get('users', userController.getAllUsers)
-// router.get('users', userController.getAllUsers)
+router.post('/register', userController.userRegistration)
 // router.get('users', userController.getAllUsers)
 
 

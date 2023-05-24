@@ -1,6 +1,8 @@
 const Category = require("../models/category.js");
 const {isValidObjectId} = require('../utils/functions.js')
 const getAllCategories = async (req, res) => {
+  console.log(req.userId);
+
   try {
     console.log("api hit");
     const categories = await Category.find({}).sort({ _id: -1 });

@@ -14,8 +14,10 @@ import {
   Divider,
 } from "@mui/material";
 import NextLink from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const ProfileDD = () => {
+  const {data: session} = useSession()
   const [anchorEl4, setAnchorEl4] = React.useState(null);
 
   const handleClick4 = (event) => {
@@ -34,6 +36,7 @@ const ProfileDD = () => {
         aria-haspopup="true"
         onClick={handleClick4}
       >
+        {!session ? <Button variant="outlined" onClick={() => signIn()}>Sign In</Button> : 
         <Box display="flex" alignItems="center">
           <Image
             src={userimg}
@@ -71,6 +74,7 @@ const ProfileDD = () => {
             <FeatherIcon icon="chevron-down" width="20" height="20" />
           </Box>
         </Box>
+        }
       </Button>
       <Menu
         id="profile-menu"
@@ -110,7 +114,7 @@ const ProfileDD = () => {
           <Divider />
           <Box p={2}>
             <Link to="/">
-              <Button fullWidth variant="contained" color="primary">
+              <Button fullWidth variant="contained" color="primary" onClick={() => signOut()}>
                 Logout
               </Button>
             </Link>

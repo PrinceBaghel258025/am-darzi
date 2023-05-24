@@ -2,24 +2,35 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:5000/admin';
 
+axios.defaults.withCredentials = true;
+
+// OR
+
+const instance = axios.create({
+    withCredentials: true
+})
 
 
 
-
-const getCategories = async () => {
-    const res = await axios.get(`${baseUrl}/categories`)
+const getCategories = async (token) => {
+    console.log("inside getCategories", token)
+    const res = await instance.get(`${baseUrl}/categories`, {
+        headers: {
+            Authorization: `${token}`
+        }
+    })
     console.log("getCategories", res.data)
     return res.data.categories;
 }
 
 const getCategory = async (id) => {
-    const res = await axios.get(`${baseUrl}/categories/${id}`)
+    const res = await instance.get(`${baseUrl}/categories/${id}`)
     return res.data.category;
 }
 
 const productsByCategory = async (id) => {
     console.log("making a request", id);
-    const res = await axios.get(`${baseUrl}/categories/products/${id}`);
+    const res = await instance.get(`${baseUrl}/categories/products/${id}`);
 
     return res.data.products;
 }
@@ -27,7 +38,7 @@ const productsByCategory = async (id) => {
 const addCategory = async (data) => {
     try{
 
-        const res = await axios.post(`${baseUrl}/categories`, data, {
+        const res = await instance.post(`${baseUrl}/categories`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -43,7 +54,7 @@ const addCategory = async (data) => {
 
 const updateCategory = async (id, data) => {
     try{
-        const res = await axios.patch(`${baseUrl}/categories/${id}`, data);
+        const res = await instance.patch(`${baseUrl}/categories/${id}`, data);
         return {updatedCategory : res.data.updateCategory, message: "Added Successfully"}
     } catch(err){
         console.log("updateCategory Error")
@@ -53,7 +64,7 @@ const updateCategory = async (id, data) => {
 const deleteCategory = async (id) => {
     console.log("hit deleteCategory")
     try{
-        const res = await axios.delete(`${baseUrl}/categories/${id}`);
+        const res = await instance.delete(`${baseUrl}/categories/${id}`);
         console.log(res);
     } catch(err){
         console.log(err)

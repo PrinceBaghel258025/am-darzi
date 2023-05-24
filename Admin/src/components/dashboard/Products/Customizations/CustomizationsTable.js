@@ -10,14 +10,15 @@ import {
   TableRow,
   Chip,
   List,
-  Button
+  Button,
+  Stack
 } from "@mui/material";
 import BasicPopover from "../../Products/BasicPopOver";
 import Image from "next/image";
 import img from "./../../../../../public/static/images/big/img5.jpg";
 import Dialog2 from "../../../common/DeleteDialog";
 import customizationServices from "../../../../services/customization";
-
+import NextLink from 'next/link';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
@@ -34,58 +35,58 @@ const useStyles = (theme) => ({
 
 const base_url = 'http://localhost:5000';
 
-const CustomizationsTable = ({customs}) => {
+const CustomizationsTable = ({ customs }) => {
   const classes = useStyles();
 
   return (
-      <Table
-        className={useStyles.table}
-        aria-label="simple table"
-        sx={{
-          mt: 3,
-          // whiteSpace: "nowrap",
-        }}
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                No.
-              </Typography>
-            </TableCell>
+    <Table
+      className={useStyles.table}
+      aria-label="simple table"
+      sx={{
+        mt: 3,
+        // whiteSpace: "nowrap",
+      }}
+    >
+      <TableHead>
+        <TableRow>
+          <TableCell>
+            <Typography color="textSecondary" variant="h6">
+              No.
+            </Typography>
+          </TableCell>
 
-            <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Name
-              </Typography>
-            </TableCell>
+          <TableCell>
+            <Typography color="textSecondary" variant="h6">
+              Name
+            </Typography>
+          </TableCell>
 
-            <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Variant name(s)
-              </Typography>
-            </TableCell>
+          <TableCell>
+            <Typography color="textSecondary" variant="h6">
+              Variant name(s)
+            </Typography>
+          </TableCell>
 
-            <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Image
-              </Typography>
-            </TableCell>
+          <TableCell>
+            <Typography color="textSecondary" variant="h6">
+              Image
+            </Typography>
+          </TableCell>
 
 
-            {/* <TableCell>
+          {/* <TableCell>
               <Typography color="textSecondary" variant="h6">
                 SubCategories
               </Typography>
             </TableCell> */}
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+          <TableCell></TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
 
-          {customs.map((cus, i) => (
-            cus.variants.map(variant => 
-                
+        {customs.map((cus, i) => (
+          cus.variants.map(variant =>
+
             <TableRow key={variant._id}>
               <TableCell>
                 <Typography
@@ -98,7 +99,7 @@ const CustomizationsTable = ({customs}) => {
                 </Typography>
               </TableCell>
 
-              
+
               <TableCell>
                 <Box
                   sx={{
@@ -138,11 +139,11 @@ const CustomizationsTable = ({customs}) => {
               </TableCell>
               <TableCell>
                 <Image
-                unoptimized
+                  unoptimized
                   src={`${base_url}/${variant.imgSrc}`}
                   width="100"
                   height="100"
-                  // layout="fill"
+                // layout="fill"
                 />
               </TableCell>
               {/* <TableCell>
@@ -153,10 +154,21 @@ const CustomizationsTable = ({customs}) => {
                   {/* {product.customs.map((c) => c.custom.name).join(" ")}
                 </Typography>
               </TableCell> */}
-              <TableCell>
-                <Button variant="outlined"><EditIcon /></Button>
-                <Dialog2 id={variant._id} action={customizationServices.removeCustomizationVariants} query={"customizations"} customId={cus._id}/>
-                <Button variant="outlined"><InfoIcon /></Button>
+              <TableCell align="right" width={'20%'}>
+                <Stack gap={1} direction={'row'} flexWrap={"wrap"}>
+
+                <NextLink
+                  href={{
+                    pathname: `/products/customizations/${cus._id}`,
+                  }}
+                >
+                  <Button variant="outlined">
+                    <EditIcon />
+                  </Button>
+                </NextLink>
+                  <Dialog2 id={variant._id} action={customizationServices.removeCustomizationVariants} query={"customizations"} customId={cus._id} />
+                  <Button variant="outlined"><InfoIcon /></Button>
+                </Stack>
 
               </TableCell>
 
@@ -164,10 +176,10 @@ const CustomizationsTable = ({customs}) => {
                 <Typography variant="h6">${product.budget}k</Typography>
               </TableCell> */}
             </TableRow>
-            )
-          ))}
-        </TableBody>
-      </Table>
+          )
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

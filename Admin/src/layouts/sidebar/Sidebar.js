@@ -48,6 +48,7 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }) => {
               return (
                 // <NextLink href={item.href}>
                   <SidebarItem
+                  onClose={onSidebarClose}
                   href={item.href}
                     item={item}
                     key={index}

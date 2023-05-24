@@ -21,7 +21,7 @@ import Buynow from "./Buynow";
 import { useRouter } from "next/router";
 import NestedList from "../../components/dashboard/Products/List";
 
-const SideBarItem = ({ item, isActive, setActive, index, href }) => {
+const SideBarItem = ({ item, isActive, setActive, index, href, onClose }) => {
   const [open, setOpen] = React.useState(true);
   const [expanded, setExpanded] = React.useState(false);
 
@@ -36,6 +36,7 @@ const SideBarItem = ({ item, isActive, setActive, index, href }) => {
   };
   let curl = useRouter();
   const location = curl.pathname;
+  console.log("sidebarItem", location)
 
   const handleExpand = () => {
     if (!item.subMenuItems) {
@@ -53,9 +54,9 @@ const SideBarItem = ({ item, isActive, setActive, index, href }) => {
         <List component="li" disablePadding key={item.title} onClick={handleExpand}>
           {/* <NextLink href={item.href}> */}
           <ListItem
-            // onClick={() => handleClick(index)}
+            onClick={item.subMenuItems ? null : onClose}
             button
-            selected={location === item.href}
+            // selected={location === item.href}
             sx={{
               mb: 1,
               ...(location === item.href && {
@@ -83,7 +84,7 @@ const SideBarItem = ({ item, isActive, setActive, index, href }) => {
           {/* </NextLink> */}
         </List>
         {expanded && (
-              <NestedList data={item.subMenuItems} open={expanded} />
+              <NestedList data={item.subMenuItems} open={expanded} onClose={onClose} />
             )}
       </Box>
     </NextLink>

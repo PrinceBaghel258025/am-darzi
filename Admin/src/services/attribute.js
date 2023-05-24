@@ -25,6 +25,16 @@ const getAllAttributes = async () => {
         return null;
     }
 }
+const getAttribute = async (id) => {
+  console.log("inside getAttribute", id);
+  try{
+      const res = await axios.get(`${baseUrl}/${id}`);
+      return res.data.attribute; 
+  } catch(err){
+      console.log(err);
+      return null;
+  }
+}
 
 const updateAttribute = async (attId, data) => {
   try{
@@ -52,4 +62,4 @@ const deleteAttribute = async (id) => {
     }
 }
 
-export default { addAttribute, getAllAttributes, updateAttribute, deleteAttribute };
+export default { addAttribute, getAllAttributes,getAttribute, updateAttribute, deleteAttribute };

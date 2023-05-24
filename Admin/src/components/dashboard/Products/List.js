@@ -15,8 +15,8 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import NextLink from "next/link";
 import ListItem from "./ListItem";
 
-export default function NestedList({ open, data }) {
-  const [isActive , setIsActive] = React.useState()
+export default function NestedList({ open, data, onClose }) {
+  // const [isActive , setIsActive] = React.useState()
   //   const [open, setOpen] = React.useState(false);
   //   console.log(props.data);
 
@@ -28,7 +28,7 @@ export default function NestedList({ open, data }) {
     // <Collapse in={open} timeout="auto" unmountOnExit>
     <List component="div" disablePadding>
       {data.map((el, i) => (
-        <ListItem key={i} element={el} isActive={isActive === i ? true : false} setActive={setIsActive} index={i}/>
+        <ListItem onClose={onClose} key={i} element={el} />
         // <NextLink href={el.href} key={el} >
         //   <ListItemButton sx={{ pl: 2, backgroundColor: isActive? 'orange': '' }}  onClick={() => setIsActive(i)} >
         //     <ListItemIcon>
