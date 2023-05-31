@@ -1,0 +1,68 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Prince86\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Prince86\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Prince86\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\Prince86\AppData\Local\Programs\Python\Python311\;C:\Users\Prince86\AppData\Local\Microsoft\WindowsApps;C:\Users\Prince86\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Prince86\AppData\Roaming\npm;C:\flutter\bin;C:\Program Files\MegaBasterdWINDOWS\jre\bin;C:\Program Files\PostgreSQL\15\bin;C:\Users\Prince86\.fly\bin;C:\Program Files\scrcpy-win64-v2.0;C:\MinGW\bin;C:\Program Files\MongoDB\Server\6.0\bin;C:\Program Files\MongoDB\Server\6.0\mongosh-1.8.2-win32-x64\bin;C:\Users\Prince86\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Prince86\AppData\Local\Android\Sdk\platform-tools;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.16.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.11.16.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\Prince86\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141517:19)
+      at Object.onceWrapper (node:events:627:28)
+      at ClientRequest.emit (node:events:513:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:848:9)
+      at Object.onceWrapper (node:events:627:28)
+      at TLSSocket.emit (node:events:525:35)
+      at Socket._onTimeout (node:net:570:8)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+npm manifest: 
+  {
+    "name": "nextjs",
+    "version": "5.0.0",
+    "private": true,
+    "dependencies": {
+      "@emotion/cache": "11.6.0",
+      "@emotion/react": "^11.7.0",
+      "@emotion/server": "11.4.0",
+      "@emotion/styled": "^11.6.0",
+      "@mui/icons-material": "^5.11.16",
+      "@mui/lab": "^5.0.0-alpha.65",
+      "@mui/material": "^5.12.3",
+      "@tanstack/react-query": "^4.29.7",
+      "apexcharts": "^3.23.1",
+      "axios": "^1.4.0",
+      "clsx": "1.1.1",
+      "feather-icons-react": "^0.5.0",
+      "next": "12.0.4",
+      "next-auth": "^4.15.1",
+      "prop-types": "15.7.2",
+      "react": "17.0.2",
+      "react-apexcharts": "^1.3.7",
+      "react-dom": "17.0.2",
+      "react-hook-form": "^7.43.9",
+      "react-toastify": "^9.1.2",
+      "uuid": "^9.0.0"
+    },
+    "scripts": {
+      "dev": "next",
+      "build": "next build",
+      "start": "next start",
+      "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
