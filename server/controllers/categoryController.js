@@ -47,10 +47,6 @@ const addCategory = async (req, res) => {
   //   console.log(req)
 
   let { categoryName } = req.body;
-  // console.log(req)
-  if (req.file) {
-    console.log("file", req.file);
-  }
 
   const subCats = JSON.parse(req.body["sub-cats"]);
   console.log(categoryName, subCats);
@@ -65,9 +61,9 @@ const addCategory = async (req, res) => {
     subCategories = subCats.map((obj) => ({ name: obj.val }));
   }
 //   console.log("subCategories", subCategories);
-  const {originalname, mimetype} = req.file;
-  const image = originalname.replace(originalname.split('.')[1],mimetype.split('/')[1]);
-  console.log("image", image);
+//   const {originalname, mimetype} = req.file;
+//   const image = originalname.replace(originalname.split('.')[1],mimetype.split('/')[1]);
+//   console.log("image", image);
 
 //   return res.send("ok");
       try {
@@ -81,7 +77,7 @@ const addCategory = async (req, res) => {
 
       const category = await Category.create({
         name : categoryName,
-        images: [image],
+        images: [req.imgLink],
         subCategories
       });
 

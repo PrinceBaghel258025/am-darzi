@@ -23,18 +23,27 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    attributes: [
+        {
+            attribute: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'attribute'
+            },
+            pattern: String
+        }
+    ],
     // available only in these colors
-    color: {
-      type: [String],
-    },
-    // all available fabric types (may refer to fabric model)
-    fabric: {
-      type: [String],
-    },
-    // suitable only for these occassions
-    occasion: {
-      type: [String],
-    },
+    // color: {
+    //   type: [String],
+    // },
+    // // all available fabric types (may refer to fabric model)
+    // fabric: {
+    //   type: [String],
+    // },
+    // // suitable only for these occassions
+    // occasion: {
+    //   type: [String],
+    // },
     // lies in the below categories
     categories: [
       {

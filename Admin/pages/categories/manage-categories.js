@@ -20,7 +20,6 @@ import NextLink from "next/link";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-
 import BaseCard from "../../src/components/baseCard/BaseCard";
 import categoryServices from "../../src/services/category";
 const attributes = ["color", "fabric"];

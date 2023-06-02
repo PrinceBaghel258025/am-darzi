@@ -5,7 +5,7 @@ const router = require("./routers/index");
 const connect = require("./db");
 const server = require("http").Server(app);
 const cors = require('cors')
-
+const morgan = require('morgan')
 // routers
 const categoryRouter = require('./routers/categoryRouter')
 const attributeRouter = require('./routers/attributeRouter')
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000', credentials: true
 }))
+app.use(morgan('dev'))
 connect(process.env.MONGODB_URi);
 
 app.get("/", (req, res) => {

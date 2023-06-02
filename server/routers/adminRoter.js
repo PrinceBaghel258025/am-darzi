@@ -3,7 +3,7 @@ const multer = require('multer')
 const router = express.Router();
 const {verifyAdmin} = require('../utils/functions')
 // utils
-const upload = require('../utils/upload.js')
+const {upload, handleImage} = require('../utils/upload.js')
 
 // controllers
 const categoryController  = require('../controllers/categoryController')
@@ -23,11 +23,11 @@ router.patch('/categories/:id', upload.array("images"), categoryController.updat
 router.delete('/categories/:id', categoryController.deleteCategory);
 // router.post('/categories', upload.single("primaryimage"), categoryController.addCategory);
 // router.post('/categories', upload.fields([{name: "primaryimage"}, {name: 'sub-cats'}]), categoryController.addCategory);
-router.post('/categories', upload.single('categoryImage'), categoryController.addCategory);
+router.post('/categories', upload.single('categoryImage'), handleImage, categoryController.addCategory);
 
 
 // Products
-
+router.post('/products',upload.single('product'), handleImage, productController.addProduct)
 router.get('/products', productController.getAllProducts)
 
 // Attributes
@@ -41,7 +41,7 @@ router.delete('/attributes/:id', attributeController.deleteAttribute)
 router.get('/customizations', customizationController.getCustomizations);
 router.get('/customizations/:id', customizationController.getCustomization);
 router.post('/customizations', customizationController.addCustomization);
-router.patch('/customizations/:id',upload.single('images'), customizationController.updateCustomization);
+router.patch('/customizations/:id',upload.single('images'),handleImage, customizationController.updateCustomization);
 router.patch('/customizations/:customId/:variantId', customizationController.deleteVariant);
 
 

@@ -16,6 +16,6 @@ const schema = new mongoose.Schema({
 },
 {timestamps: true})
 
-const Customization = mongoose.model('Customization', schema);
+const Customization = mongoose.model('customization', schema);
 
 module.exports = Customization;
