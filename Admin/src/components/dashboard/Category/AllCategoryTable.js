@@ -111,7 +111,7 @@ const AllCategoryTable = ({ categories }) => {
               <Image
                 // src='/public/static/images/logos/logo-dark.svg'
                 // loader={(src) => src}
-                src={`${baseUrl}/${cat.images[0]}`}
+                src={`${cat.images[0]}`}
                 width="100"
                 height="100"
                 // layout="fill"

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5000/admin/customizations";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL ? process.env.NEXT_PUBLIC_BACKEND_URL + '/admin/customizations' : 'http://localhost:5000/admin/customizations';
 
 const addCustomization = async (data) => {
   try {

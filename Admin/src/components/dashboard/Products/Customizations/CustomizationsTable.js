@@ -140,7 +140,7 @@ const CustomizationsTable = ({ customs }) => {
               <TableCell>
                 <Image
                   unoptimized
-                  src={`${base_url}/${variant.imgSrc}`}
+                  src={`${variant.imgSrc}`}
                   width="100"
                   height="100"
                 // layout="fill"
