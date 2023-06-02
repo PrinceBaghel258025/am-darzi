@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5000/admin/attributes";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL ? process.env.NEXT_PUBLIC_BACKEND_URL + '/admin/attributes' : 'http://localhost:5000/admin/attributes';
 
 const addAttribute = async (data) => {
   try {
