@@ -128,15 +128,11 @@ const updateCustomization = async (req, res) => {
   }
 
   const { title } = req.body;
-  const file = req.file;
-  console.log(file);
+//   const file = req.file;
+//   console.log(file);
   // console.log("body", title, images);
   // // console.log("typeof request", typeof req)
-  let imgSrc = "";
-  if (req.file) {
-    imgSrc = file.originalname;
-    console.log(file);
-  }
+  let imgSrc = req.imgLink;
 
   try {
     const customization = await Customization.findById(id);
@@ -158,8 +154,7 @@ const updateCustomization = async (req, res) => {
     customization.variants.push({ title, imgSrc });
     const updatedCustomization = await customization.save();
     return res.status(200).json({
-      updatedCustomization,
-      file: req.file,
+      updatedCustomization
     });
   } catch (err) {
     console.log(err);

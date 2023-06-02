@@ -27,8 +27,8 @@ const getByCategories = async (req, res) => {
 const getAllProducts = async (req, res) => {
   console.log("got the getallproducts");
   try {
-    const products = await Product.find();
-    console.log("products", products);
+    const products = await Product.find().populate('categories').populate({ path: "customs", populate: {path: "custom"} });
+    console.log("products111111", products);
     return res.status(200).json({
       products,
     });
@@ -41,6 +41,7 @@ const getAllProducts = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
+    const imgurl = req.imgLink;
   const product = new Product({
     ...req.body,
   });

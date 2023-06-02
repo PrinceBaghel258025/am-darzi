@@ -17,6 +17,7 @@ const checkToken = async (token) => {
 
 
 const verifyAdmin = async (req, res, next) => {
+    console.log(req.headers.authorization)
   const token = req.headers.authorization;
 
   // console.log(typeof req.headers.cookie)
@@ -31,9 +32,9 @@ const verifyAdmin = async (req, res, next) => {
 
   // console.log(foo['next-auth.session-token'])
 
-  const decoded = await checkToken(token)
-  req.userId = decoded.userID;
-  console.log(decoded)
+//   const decoded = await checkToken(token)
+//   req.userId = decoded.userID;
+//   console.log(decoded)
   next();
 }
 module.exports = {
