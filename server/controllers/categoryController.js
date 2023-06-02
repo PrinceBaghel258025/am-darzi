@@ -75,6 +75,7 @@ const addCategory = async (req, res) => {
             })
         }
 
+        console.log(req.imgLink)
       const category = await Category.create({
         name : categoryName,
         images: [req.imgLink],
