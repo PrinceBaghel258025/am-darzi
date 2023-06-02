@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:5000/admin';
+// const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL + '/admin';
 
 axios.defaults.withCredentials = true;
 
